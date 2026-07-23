@@ -13,7 +13,7 @@ const postsCollection = defineCollection({
       date: z.coerce.date(),
       image: image(),
       imageAlt: z.string().optional(),
-      authors: z.array(z.string()).min(1),
+      ancestors: z.array(z.string()).min(1),
       categories: z.array(z.string()).default([]),
       tags: z.array(z.string()).default([]),
       series: z.object({
@@ -27,7 +27,7 @@ const postsCollection = defineCollection({
     }),
 });
 
-const authorsCollection = defineCollection({
+const ancestorsCollection = defineCollection({
   loader: glob({ base: "./src/content/authors", pattern: "[^_]*.{md,mdx}" }),
   schema: z.object({
     id: z.string().optional(),
@@ -35,12 +35,12 @@ const authorsCollection = defineCollection({
     meta_title: z.string().optional(),
     image: z.string().optional(),
     description: z.string().optional(),
-    social: z
+    info: z
       .object({
-        facebook: z.url().optional(),
-        twitter: z.url().optional(),
-        instagram: z.url().optional(),
-        website: z.url().optional(),
+        school: z.url().optional(),
+        teacher: z.url().optional(),
+        country: z.url().optional(),
+        link: z.url().optional(),
       })
       .optional(),
     draft: z.boolean().default(false),
@@ -84,6 +84,6 @@ const aboutCollection = defineCollection({
 export const collections = {
   posts: postsCollection,
   pages: pagesCollection,
-  authors: authorsCollection,
+  ancestors: ancestorsCollection,
   about: aboutCollection,
 };
